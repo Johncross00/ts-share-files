@@ -1,11 +1,20 @@
-import './assets/main.css'
+import "./assets/main.css";
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
 
-const app = createApp(App)
+import App from "./App.vue";
+import router from "./router";
+import { JSON_SERVER_URL } from "../config";
 
-app.use(createPinia())
+const jsonServerUrl: string = JSON_SERVER_URL;
 
-app.mount('#app')
+const app = createApp(App);
+
+app.use(createPinia());
+app.use(router);
+
+app.mount("#app");
+
+console.log("JSON Server URL:", jsonServerUrl);
+console.log("Vite env:", import.meta.env);

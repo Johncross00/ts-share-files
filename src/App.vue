@@ -1,47 +1,38 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { RouterView } from 'vue-router'
+import NavBar from './components/NavBar.vue'
+import { useUserStore } from './stores/userStore'
+import { computed } from 'vue'
+
+const userStore = useUserStore()
+const isAuthenticated = computed<boolean>(() => userStore.isAuthenticated)
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
+  <nav>
+    <NavBar v-if="isAuthenticated" />
+  </nav>
+  <main class="main-content">
+    <RouterView />
   </main>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 5px;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+nav {
+  width: 100%;
+  font-size: 1rem;
+  padding: 1rem 0;
 }
 </style>
